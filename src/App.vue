@@ -325,7 +325,7 @@ onMounted(() => {
                         raulfdeztdo
                     </a>
                     · &copy; {{ new Date().getFullYear() }} ·
-                    <a href="https://github.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer"
+                    <a href="https://github.com/raulfdeztdo/devtools" target="_blank" rel="noopener noreferrer"
                         class="inline-flex items-center gap-1 font-medium text-brand-blue hover:text-brand-orange dark:text-brand-blue-lighter dark:hover:text-brand-orange-light transition-colors">
                         <Github class="w-4 h-4" />
                         {{ t('footer.openSource') }}
