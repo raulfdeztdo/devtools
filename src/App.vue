@@ -203,7 +203,7 @@ onMounted(() => {
                                     leave-from-class="scale-100 opacity-100" leave-to-class="scale-95 opacity-0">
                                     <div v-show="showDropdown" @mouseenter="handleDropdownEnter"
                                         @mouseleave="handleDropdownLeave"
-                                        class="absolute left-0 z-50 mt-2 origin-top-left bg-white border border-gray-200/80 rounded-xl shadow-xl dark:bg-night-card dark:border-night-border/80 top-full ring-1 ring-black/5 dark:ring-white/5 overflow-y-auto"
+                                        class="absolute right-0 z-50 mt-2 origin-top-right bg-white border border-gray-200/80 rounded-xl shadow-xl dark:bg-night-card dark:border-night-border/80 top-full ring-1 ring-black/5 dark:ring-white/5 overflow-y-auto"
                                         style="width: 480px; max-height: 70vh;">
                                         <div class="p-2 grid grid-cols-2 gap-x-2">
                                             <template v-for="cat in categories.filter(c => c.id !== 'all')" :key="cat.id">
