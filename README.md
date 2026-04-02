@@ -5,7 +5,7 @@ Suite de herramientas de desarrollo completamente offline, construida con Vue 3,
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.3-4FC08D?style=flat-square&logo=vue.js&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?style=flat-square&logo=vite&logoColor=white)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://devtoolset.netlify.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/33df3ce5-7f5f-45a6-a6be-fd5b1e23b2f1/deploy-status)](https://app.netlify.com/projects/devtoolset/deploys)
 
 **[https://devtoolset.netlify.app/](https://devtoolset.netlify.app/)**
 
@@ -15,57 +15,57 @@ Suite de herramientas de desarrollo completamente offline, construida con Vue 3,
 
 ### JSON
 
-| Herramienta | Descripcion |
-|---|---|
-| **JSONLint** | Valida, formatea y minifica JSON con deteccion de errores en tiempo real y resaltado de sintaxis. |
+| Herramienta               | Descripcion                                                                                                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **JSONLint**              | Valida, formatea y minifica JSON con deteccion de errores en tiempo real y resaltado de sintaxis.                                                           |
 | **JSON Schema Validator** | Valida documentos JSON contra un esquema JSON (Draft 04, 07, 2019-09, 2020-12) usando AJV. Muestra errores detallados con la ubicacion exacta del problema. |
-| **JSON Compare** | Compara dos documentos JSON con diff visual lado a lado. Detecta adiciones, eliminaciones y modificaciones a nivel de clave/valor. |
+| **JSON Compare**          | Compara dos documentos JSON con diff visual lado a lado. Detecta adiciones, eliminaciones y modificaciones a nivel de clave/valor.                          |
 
 ### Codificacion y conversion
 
-| Herramienta | Descripcion |
-|---|---|
-| **Base64 Converter** | Codifica y decodifica texto y archivos en Base64. Permite descargar el resultado. |
-| **URL Converter** | Codifica y decodifica URLs, parsea parametros de consulta automaticamente y permite construir URLs de forma interactiva. |
-| **HTML Entities** | Codifica y decodifica entidades HTML como `&amp;`, `&lt;`, `&gt;` y mas. |
-| **JWT Decoder** | Decodifica tokens JWT y visualiza header, payload y firma. Sin verificacion remota. |
-| **PHP Serializer** | Convierte entre JSON y el formato `serialize()` de PHP en ambas direcciones. |
-| **YAML <-> JSON** | Convierte entre YAML y JSON de forma bidireccional. |
-| **TOML <-> JSON** | Convierte entre TOML y JSON de forma bidireccional. |
-| **XML <-> JSON** | Convierte entre XML y JSON de forma bidireccional. |
+| Herramienta          | Descripcion                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Base64 Converter** | Codifica y decodifica texto y archivos en Base64. Permite descargar el resultado.                                        |
+| **URL Converter**    | Codifica y decodifica URLs, parsea parametros de consulta automaticamente y permite construir URLs de forma interactiva. |
+| **HTML Entities**    | Codifica y decodifica entidades HTML como `&amp;`, `&lt;`, `&gt;` y mas.                                                 |
+| **JWT Decoder**      | Decodifica tokens JWT y visualiza header, payload y firma. Sin verificacion remota.                                      |
+| **PHP Serializer**   | Convierte entre JSON y el formato `serialize()` de PHP en ambas direcciones.                                             |
+| **YAML <-> JSON**    | Convierte entre YAML y JSON de forma bidireccional.                                                                      |
+| **TOML <-> JSON**    | Convierte entre TOML y JSON de forma bidireccional.                                                                      |
+| **XML <-> JSON**     | Convierte entre XML y JSON de forma bidireccional.                                                                       |
 
 ### Generadores
 
-| Herramienta | Descripcion |
-|---|---|
-| **UUID Generator** | Genera identificadores UUID en versiones v1, v3, v4 y v5. Generacion en lotes hasta 1000 UUIDs. |
-| **Password Generator** | Genera contrasenas seguras con control granular sobre caracteres, longitud y medidor de seguridad en tiempo real. |
-| **Hash Generator** | Genera hashes MD5, SHA-1, SHA-256 y SHA-512 de texto. Todo se procesa localmente. |
-| **Lorem Ipsum** | Genera texto de relleno Lorem Ipsum por parrafos, frases o palabras. |
-| **QR Generator** | Genera codigos QR desde cualquier texto o URL. Se genera localmente en el navegador. |
+| Herramienta                 | Descripcion                                                                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **UUID Generator**          | Genera identificadores UUID en versiones v1, v3, v4 y v5. Generacion en lotes hasta 1000 UUIDs.                               |
+| **Password Generator**      | Genera contrasenas seguras con control granular sobre caracteres, longitud y medidor de seguridad en tiempo real.             |
+| **Hash Generator**          | Genera hashes MD5, SHA-1, SHA-256 y SHA-512 de texto. Todo se procesa localmente.                                             |
+| **Lorem Ipsum**             | Genera texto de relleno Lorem Ipsum por parrafos, frases o palabras.                                                          |
+| **QR Generator**            | Genera codigos QR desde cualquier texto o URL. Se genera localmente en el navegador.                                          |
 | **Color Palette Generator** | Genera paletas de colores con seis algoritmos de armonia. Exporta en HEX, RGB y HSL e incluye verificacion de contraste WCAG. |
-| **Favicon Generator** | Genera favicons en multiples tamanos a partir de texto, emoji o imagen. |
+| **Favicon Generator**       | Genera favicons en multiples tamanos a partir de texto, emoji o imagen.                                                       |
 
 ### Formateo y texto
 
-| Herramienta | Descripcion |
-|---|---|
-| **SQL Formatter** | Formatea y embellece consultas SQL para mejorar su legibilidad. |
-| **CSS / JS Minifier** | Minifica y formatea codigo CSS y JavaScript con Prettier. |
-| **Markdown Preview** | Editor Markdown con vista previa en tiempo real y exportacion HTML. |
-| **Text Diff** | Compara dos textos y resalta las diferencias linea por linea. |
-| **Case Converter** | Convierte texto entre camelCase, snake_case, kebab-case, UPPER_CASE y mas. |
-| **String Counter** | Cuenta caracteres, palabras, lineas y bytes de cualquier texto. |
-| **Regex Tester** | Prueba expresiones regulares con resaltado de coincidencias, grupos capturados y referencia rapida. |
+| Herramienta           | Descripcion                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| **SQL Formatter**     | Formatea y embellece consultas SQL para mejorar su legibilidad.                                     |
+| **CSS / JS Minifier** | Minifica y formatea codigo CSS y JavaScript con Prettier.                                           |
+| **Markdown Preview**  | Editor Markdown con vista previa en tiempo real y exportacion HTML.                                 |
+| **Text Diff**         | Compara dos textos y resalta las diferencias linea por linea.                                       |
+| **Case Converter**    | Convierte texto entre camelCase, snake_case, kebab-case, UPPER_CASE y mas.                          |
+| **String Counter**    | Cuenta caracteres, palabras, lineas y bytes de cualquier texto.                                     |
+| **Regex Tester**      | Prueba expresiones regulares con resaltado de coincidencias, grupos capturados y referencia rapida. |
 
 ### Web y referencia
 
-| Herramienta | Descripcion |
-|---|---|
+| Herramienta             | Descripcion                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
 | **Timestamp Converter** | Convierte timestamps Unix a fechas legibles y viceversa. Soporta multiples zonas horarias. |
-| **Cron Parser** | Interpreta y construye expresiones cron visualmente con descripcion en lenguaje natural. |
-| **HTTP Status Codes** | Referencia completa de codigos de estado HTTP con descripcion y casos de uso. |
-| **User-Agent Parser** | Analiza cadenas de User-Agent y extrae navegador, sistema operativo y dispositivo. |
+| **Cron Parser**         | Interpreta y construye expresiones cron visualmente con descripcion en lenguaje natural.   |
+| **HTTP Status Codes**   | Referencia completa de codigos de estado HTTP con descripcion y casos de uso.              |
+| **User-Agent Parser**   | Analiza cadenas de User-Agent y extrae navegador, sistema operativo y dispositivo.         |
 
 ---
 
