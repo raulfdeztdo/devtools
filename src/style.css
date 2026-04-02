@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+        @apply transition-colors duration-300 bg-gray-50;
+    }
+
+    html.dark body {
+        background-color: #1a2332;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply px-4 py-2 font-medium text-white transition-colors duration-200 rounded-lg bg-brand-blue hover:bg-brand-blue-dark focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-secondary {
+        @apply px-4 py-2 font-medium text-white transition-colors duration-200 rounded-lg bg-brand-muted hover:bg-brand-muted-light focus:outline-none focus:ring-2 focus:ring-brand-muted focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .card {
+        @apply transition-all duration-300 bg-white border border-gray-200 shadow-lg rounded-xl;
+    }
+
+    html.dark .card {
+        background-color: #243044;
+        border-color: #334466;
+    }
+
+    .card-hover {
+        @apply hover:shadow-xl hover:-translate-y-1 hover:border-brand-blue;
+    }
+
+    html.dark .card-hover:hover {
+        border-color: #8aaac8;
+    }
+
+    .input-field {
+        @apply w-full px-3 py-2 text-gray-900 placeholder-gray-500 transition-colors duration-200 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent;
+    }
+
+    html.dark .input-field {
+        background-color: #2c3a52;
+        border-color: #334466;
+        color: white;
+    }
+
+    html.dark .input-field::placeholder {
+        color: #9ca3af;
+    }
+
+    .textarea-field {
+        @apply w-full px-3 py-2 font-mono text-sm text-gray-900 placeholder-gray-500 transition-colors duration-200 bg-white border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent;
+    }
+
+    html.dark .textarea-field {
+        background-color: #2c3a52;
+        border-color: #334466;
+        color: white;
+    }
+
+    html.dark .textarea-field::placeholder {
+        color: #9ca3af;
+    }
+
+    .checkbox {
+        @apply w-4 h-4 transition-colors duration-200 bg-gray-100 border-gray-300 rounded text-brand-blue focus:ring-brand-blue focus:ring-2;
+    }
+
+    html.dark .checkbox {
+        background-color: #2c3a52;
+        border-color: #334466;
+    }
+
+    .radio {
+        @apply w-4 h-4 transition-colors duration-200 bg-gray-100 border-gray-300 text-brand-blue focus:ring-brand-blue focus:ring-2;
+    }
+
+    html.dark .radio {
+        background-color: #2c3a52;
+        border-color: #334466;
+    }
+
+    .result-display {
+        @apply p-4 font-mono text-sm text-gray-900 break-all border border-gray-200 rounded-lg bg-gray-50;
+    }
+
+    html.dark .result-display {
+        background-color: #2c3a52;
+        border-color: #334466;
+        color: white;
+    }
+}
+
+@layer utilities {
+    .text-gradient {
+        @apply text-transparent bg-gradient-to-r from-brand-blue to-brand-orange bg-clip-text;
+    }
+
+    .shadow-brand {
+        box-shadow: 0 10px 25px -5px rgba(45, 74, 110, 0.15), 0 10px 10px -5px rgba(45, 74, 110, 0.06);
+    }
+
+    /* Colores específicos para el logo */
+    .fill-brand-blue {
+        fill: #2d4a6e;
+    }
+
+    .fill-brand-orange {
+        fill: #d4845a;
+    }
+}

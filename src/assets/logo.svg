@@ -1,0 +1,16 @@
+<svg id="devtools-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <defs>
+    <style>
+      .logo-bg { fill: #1e3450; }
+      .logo-text { fill: #d4845a; font-family: monospace, sans-serif; font-size: 16px; font-weight: bold; }
+
+      @media (prefers-color-scheme: dark) {
+        .logo-bg { fill: #1e3450; }
+      }
+
+      :root.dark .logo-bg { fill: #1e3450; }
+    </style>
+  </defs>
+  <rect class="logo-bg" width="36" height="36" rx="8"/>
+  <text class="logo-text" x="18" y="25" text-anchor="middle">&lt;/&gt;</text>
+</svg>

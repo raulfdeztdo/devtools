@@ -1,0 +1,71 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                // Get your API key at https://context7.com
+                "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY_HERE"
+            },
+            "enabled": true
+        }
+    },
+    "agent": {
+        "build": {
+            "mode": "primary",
+            "description": "Full development agent with all tools. Default for coding tasks.",
+            "permission": {
+                "edit": "allow",
+                "bash": "allow",
+                "skill": "allow",
+                "webfetch": "allow"
+            }
+        },
+        "plan": {
+            "mode": "primary",
+            "description": "Analysis and planning agent. Cannot modify files. Use for reviewing architecture, planning features, and creating implementation strategies.",
+            "permission": {
+                "edit": "deny",
+                "bash": "ask"
+            }
+        },
+        "orchestrator": {
+            "mode": "subagent",
+            "description": "Worktree and parallel task orchestrator. Use this agent to set up git worktrees, delegate tasks to subagents, and coordinate merge workflows. Specializes in parallelizing multi-tool additions and bulk migrations.",
+            "prompt": "You are a task orchestrator for the devtools project. Your role is to:\n1. Analyze tasks and determine if they can be parallelized\n2. Create git worktrees for isolated parallel development\n3. Delegate independent tasks to other subagents\n4. Coordinate merges and resolve conflicts in shared files (main.js, App.vue, Home.vue, locale JSONs)\n5. Verify builds in each worktree before merging\n\nAlways load the 'worktree-parallel-agents' skill first. Follow the parallelization decision tree:\n- Single file change -> do directly\n- Independent files -> parallel subagents\n- Shared files -> worktrees for full isolation\n- Sequential dependencies -> execute in order\n\nShared files that require special handling: main.js, App.vue, Home.vue, es.json, en.json.\nNever assign the same file to multiple parallel subagents without worktree isolation.",
+            "permission": {
+                "edit": "allow",
+                "bash": "allow",
+                "skill": "allow",
+                "task": {
+                    "*": "allow"
+                }
+            }
+        },
+        "reviewer": {
+            "mode": "subagent",
+            "description": "Read-only code reviewer. Audits Vue components for best practices, accessibility, i18n coverage, dark mode support, and mobile responsiveness. Cannot modify files.",
+            "prompt": "You are a code reviewer for the devtools project (Vue 3 + Tailwind CSS + vue-i18n). Review code for:\n1. Vue 3 Composition API best practices (always <script setup>)\n2. Tailwind CSS consistency (brand-* colors, custom classes from style.css)\n3. Dark mode support (every element needs dark: variants)\n4. Mobile responsiveness (sm:, md:, lg: breakpoints)\n5. i18n completeness (all user-facing strings use t() from vue-i18n)\n6. Accessibility (semantic HTML, ARIA attributes, keyboard navigation)\n7. Security (no external API calls, no data leaks, client-side only)\n\nLoad relevant skills (vue-best-practices, accessibility, i18n-translation) as needed.\nReport findings as structured lists with file paths and line numbers.\nDo NOT modify any files.",
+            "permission": {
+                "edit": "deny",
+                "bash": {
+                    "*": "deny",
+                    "npm run build": "allow",
+                    "git *": "allow"
+                },
+                "skill": "allow"
+            }
+        },
+        "tool-builder": {
+            "mode": "subagent",
+            "description": "Specialized agent for creating new devtools views. Follows the add-tool skill to create complete, self-contained Vue 3 tool components with i18n, dark mode, and mobile support. Use when adding new tools to the suite.",
+            "prompt": "You are a tool builder for the devtools project. Your sole purpose is creating new developer tool views.\n\nBefore creating any tool, ALWAYS load the 'add-tool' skill for the complete workflow.\n\nEvery tool you create MUST:\n1. Use Vue 3 Composition API with <script setup>\n2. Use useI18n() with t() for ALL user-facing strings\n3. Support dark mode (dark: variants on every element)\n4. Be mobile responsive (sm:, md:, lg: breakpoints)\n5. Use custom classes from style.css (card, btn-primary, btn-secondary, input-field, textarea-field, result-display)\n6. Use brand-* colors from tailwind.config.js\n7. Include copy-to-clipboard functionality for outputs\n8. Use lucide-vue-next icons (no emojis in UI)\n9. Prefer native browser APIs over npm packages\n10. Be fully self-contained (no shared state)\n\nAfter creating the view file, also update:\n- main.js (import + route)\n- App.vue (tools array entry)\n- Home.vue (bento grid card + tools array)\n- es.json and en.json (all i18n keys)\n\nAlways run 'npm run build' to verify before finishing.",
+            "permission": {
+                "edit": "allow",
+                "bash": "allow",
+                "skill": "allow"
+            }
+        }
+    }
+}
