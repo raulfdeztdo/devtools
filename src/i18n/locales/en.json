@@ -180,8 +180,9 @@
       "standardFormat": "Standard (with dashes)",
       "simpleFormat": "Simple (no dashes)",
       "nonStandard": "Version {version} (Non-standard)",
+      "v7desc": "Unix timestamp in ms + random (recommended for modern systems)",
       "tags": {
-        "v1v5": "v1-v5",
+        "v1v7": "v1-v7",
         "batch": "Batch"
       }
     },
@@ -826,66 +827,246 @@
       "description": "Description",
       "useCases": "Use Cases",
       "codes": {
-        "100": { "description": "The server has received the request headers and the client should proceed to send the request body.", "useCases": "Used when a client needs to send a large request body. The server signals it is ready before the client sends the body, saving bandwidth if the server would reject the request anyway." },
-        "101": { "description": "The requester has asked the server to switch protocols and the server has agreed to do so.", "useCases": "Commonly used when upgrading from HTTP to WebSocket. The client sends an Upgrade header and the server responds with 101 to confirm the protocol switch." },
-        "102": { "description": "The server has received and is processing the request, but no response is available yet.", "useCases": "Used in WebDAV to prevent client timeouts on long-running operations. Signals that the server is working but hasn't finished yet." },
-        "103": { "description": "Used to return some response headers before final HTTP message.", "useCases": "Allows browsers to start preloading resources while the server is still preparing a full response. Improves page load performance." },
-        "200": { "description": "The request has succeeded. The information returned with the response is dependent on the method used in the request.", "useCases": "Standard response for successful GET, POST, PUT, PATCH requests. The response body contains the requested resource or result." },
-        "201": { "description": "The request has been fulfilled and resulted in a new resource being created.", "useCases": "Returned after a successful POST request that creates a new resource. The Location header typically contains the URI of the new resource." },
-        "202": { "description": "The request has been accepted for processing, but the processing has not been completed.", "useCases": "Used for asynchronous operations. The server accepted the request but will process it later, such as batch processing jobs." },
-        "203": { "description": "The server is a transforming proxy that received a 200 OK from its origin, but is returning a modified version of the response.", "useCases": "Used by caching proxies or intermediaries that modify the response headers or body from an origin server." },
-        "204": { "description": "The server successfully processed the request, but is not returning any content.", "useCases": "Returned for successful DELETE requests or PUT/PATCH when no body needs to be returned. Also used for auto-save operations." },
-        "205": { "description": "The server successfully processed the request, but is not returning any content and requires the requester to reset the document view.", "useCases": "Instructs the client to reset the form or document after a submission. Similar to 204 but also clears user input." },
-        "206": { "description": "The server is delivering only part of the resource due to a range header sent by the client.", "useCases": "Used for video streaming, resumable downloads, and paginated content delivery. The client requests a specific byte range using the Range header." },
-        "207": { "description": "The message body that follows is by default an XML message and can contain a number of separate response codes.", "useCases": "Used in WebDAV for operations that affect multiple resources. Returns a status for each resource in the response body." },
-        "208": { "description": "The members of a DAV binding have already been enumerated in a preceding part of the response.", "useCases": "Used in WebDAV to avoid repeatedly enumerating the internal members of multiple bindings to the same collection." },
-        "226": { "description": "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations.", "useCases": "Used with HTTP delta encoding. The server returns a delta of the content rather than the full content." },
-        "300": { "description": "The request has more than one possible response. The user-agent or user should choose one of them.", "useCases": "Used when a resource has multiple representations. The server provides a list of options for the client to choose from." },
-        "301": { "description": "The URL of the requested resource has been changed permanently. The new URL is given in the response.", "useCases": "Use for permanent URL changes. SEO-friendly redirect that passes link equity. Browsers cache this redirect permanently." },
-        "302": { "description": "The URI of requested resource has been changed temporarily. The client should continue to use the original URI.", "useCases": "Temporary redirect. Common for login redirects, A/B testing, and maintenance pages. Does not update bookmarks." },
-        "303": { "description": "The server sent this response to direct the client to get the requested resource at another URI with a GET request.", "useCases": "Used after a POST/PUT/DELETE to redirect to a result page, following the Post/Redirect/Get pattern to prevent form resubmission." },
-        "304": { "description": "Used for caching purposes. It tells the client that the response has not been modified, so the client can continue to use the same cached version of the response.", "useCases": "Returned when a client makes a conditional GET request using If-Modified-Since or If-None-Match headers and the resource hasn't changed." },
-        "307": { "description": "The server sends this response to direct the client to get the requested resource at another URI with same method that was used in the prior request.", "useCases": "Like 302, but guarantees the HTTP method won't change. Used when temporarily moving a resource and the method must be preserved (e.g., POST stays POST)." },
-        "308": { "description": "The resource is now permanently located at another URI, specified by the Location: HTTP Response header.", "useCases": "Like 301, but preserves the HTTP method. Ideal for permanently moving API endpoints while keeping POST requests as POST." },
-        "400": { "description": "The server could not understand the request due to invalid syntax.", "useCases": "Returned when the request has malformed syntax, invalid request message framing, or deceptive request routing. Common for invalid JSON bodies." },
-        "401": { "description": "The client must authenticate itself to get the requested response.", "useCases": "Returned when accessing protected resources without authentication credentials, or when credentials are invalid. The client should send auth in the next request." },
-        "402": { "description": "This response code is reserved for future use. Initial aim was for digital payment systems.", "useCases": "Used by some APIs to indicate quota exceeded or subscription required. Not part of the official HTTP spec but used in practice." },
-        "403": { "description": "The client does not have access rights to the content. Unlike 401, the client's identity is known to the server.", "useCases": "The user is authenticated but lacks permission. Common for role-based access control. Also used to hide existence of resources." },
-        "404": { "description": "The server can not find the requested resource. In the browser, this means the URL is not recognized.", "useCases": "The most well-known HTTP status. Used when a resource doesn't exist or to deliberately hide the existence of a resource (alternative to 403)." },
-        "405": { "description": "The request method is known by the server but is not supported by the target resource.", "useCases": "Returned when a POST is sent to a GET-only endpoint, or when trying to DELETE a read-only resource. The Allow header should list valid methods." },
-        "406": { "description": "The server cannot produce a response matching the list of acceptable values defined in the request's content negotiation headers.", "useCases": "Returned when the Accept header requests a format (e.g., XML) that the server cannot provide." },
-        "407": { "description": "Authentication is needed to be done by a proxy.", "useCases": "Similar to 401, but authentication must be performed against a proxy server before the request can proceed." },
-        "408": { "description": "The server would like to shut down this unused connection. Some servers send this on idle connections.", "useCases": "Returned when a client takes too long to send the complete request. The server may close the connection or request a retry." },
-        "409": { "description": "This response is sent when a request conflicts with the current state of the server.", "useCases": "Common when trying to create a duplicate resource, version conflicts in optimistic locking, or editing conflicts in collaborative systems." },
-        "410": { "description": "This response is sent when the requested content has been permanently deleted from server, with no forwarding address.", "useCases": "More permanent than 404. Signals that the resource intentionally no longer exists. Helps search engines remove stale indexed pages." },
-        "411": { "description": "Server rejected the request because the Content-Length header field is not defined and the server requires it.", "useCases": "Returned when sending a request body (e.g., POST) without specifying the Content-Length header, which the server requires." },
-        "412": { "description": "The client has indicated preconditions in its headers which the server does not meet.", "useCases": "Used in conditional requests (If-Match, If-Unmodified-Since). Common for optimistic concurrency control in REST APIs." },
-        "413": { "description": "Request entity is larger than limits defined by server.", "useCases": "Returned when uploading a file that exceeds the server's maximum allowed size, or when a request body is too large." },
-        "414": { "description": "The URI requested by the client is longer than the server is willing to interpret.", "useCases": "Returned when a GET request URL is too long. Common when query parameters are used for large amounts of data instead of a POST body." },
-        "415": { "description": "The media format of the requested data is not supported by the server.", "useCases": "Returned when sending application/xml to an endpoint that only accepts application/json, or sending an unsupported file type for upload." },
-        "416": { "description": "The range specified by the Range header field in the request can't be fulfilled.", "useCases": "Returned for partial content requests when the requested byte range is out of bounds for the resource." },
-        "417": { "description": "The expectation indicated by the Expect request header field can't be met by the server.", "useCases": "Returned when a client sends Expect: 100-continue but the server cannot or will not meet this expectation." },
-        "418": { "description": "The server refuses the attempt to brew coffee with a teapot.", "useCases": "An April Fools' joke from RFC 2324. Used humorously or to signal that a resource refuses a particular type of request." },
-        "422": { "description": "The request was well-formed but was unable to be followed due to semantic errors.", "useCases": "Used in REST APIs when validation fails (e.g., required fields missing, invalid field values). The structure is valid but the content is semantically incorrect." },
-        "423": { "description": "The resource that is being accessed is locked.", "useCases": "Used in WebDAV when a resource is locked (e.g., checked out by another user) and cannot be modified." },
-        "424": { "description": "The request failed due to failure of a previous request.", "useCases": "WebDAV status. Used when a batch operation fails because a dependency of the current operation failed." },
-        "425": { "description": "Indicates that the server is unwilling to risk processing a request that might be replayed.", "useCases": "Used with TLS 1.3 early data (0-RTT). Prevents replay attacks by refusing to process requests that may be replayed." },
-        "426": { "description": "The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol.", "useCases": "Used to require the client to switch to a newer protocol, such as upgrading from HTTP/1.1 to HTTP/2." },
-        "428": { "description": "The origin server requires the request to be conditional.", "useCases": "Forces clients to use conditional requests (ETags) to avoid lost-update problems in concurrent modifications of REST resources." },
-        "429": { "description": "The user has sent too many requests in a given amount of time (\"rate limiting\").", "useCases": "API rate limiting. The Retry-After header indicates when the client can try again. Common in public APIs to prevent abuse." },
-        "431": { "description": "The server is unwilling to process the request because its header fields are too large.", "useCases": "Returned when request headers (cookies, authorization tokens, custom headers) exceed the server's size limit." },
-        "451": { "description": "The user agent requested a resource that cannot legally be provided.", "useCases": "Content blocked due to legal requirements such as GDPR, DMCA, court orders, or geo-based legal restrictions." },
-        "500": { "description": "The server has encountered a situation it doesn't know how to handle.", "useCases": "Generic error for unhandled exceptions. Indicates a bug or unexpected condition on the server. Logs should be checked to diagnose the root cause." },
-        "501": { "description": "The request method is not supported by the server and cannot be handled.", "useCases": "Returned when the server doesn't support a particular HTTP method at all. Different from 405 which means the method isn't supported for this specific resource." },
-        "502": { "description": "The server, while working as a gateway to get a response needed to handle the request, got an invalid response.", "useCases": "Occurs when a reverse proxy (nginx, load balancer) receives an invalid response from the upstream application server. Often indicates the backend service crashed." },
-        "503": { "description": "The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.", "useCases": "Used during scheduled maintenance or when the server is overloaded. Include Retry-After header to indicate when service will be restored." },
-        "504": { "description": "The server is acting as a gateway and cannot get a response in time.", "useCases": "A reverse proxy didn't receive a timely response from the upstream server. Common with slow database queries or long-running operations." },
-        "505": { "description": "The HTTP version used in the request is not supported by the server.", "useCases": "Returned when the server doesn't support the HTTP protocol version used in the request (e.g., server doesn't support HTTP/2)." },
-        "506": { "description": "The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself.", "useCases": "Internal server misconfiguration. A variant resource is itself configured to participate in content negotiation, creating a circular reference." },
-        "507": { "description": "The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request.", "useCases": "WebDAV status. Returned when the server runs out of disk space or storage quota during a file upload or creation operation." },
-        "508": { "description": "The server detected an infinite loop while processing the request.", "useCases": "WebDAV status. Detected when processing a Depth: infinity request that would create an infinite recursive loop." },
-        "510": { "description": "Further extensions to the request are required for the server to fulfil it.", "useCases": "The server needs the client to use an extension to the HTTP protocol it announced in the response to process the request." },
-        "511": { "description": "The client needs to authenticate to gain network access.", "useCases": "Used by network access control points (captive portals, Wi-Fi login pages) to redirect users to an authentication page before allowing internet access." }
+        "100": {
+          "description": "The server has received the request headers and the client should proceed to send the request body.",
+          "useCases": "Used when a client needs to send a large request body. The server signals it is ready before the client sends the body, saving bandwidth if the server would reject the request anyway."
+        },
+        "101": {
+          "description": "The requester has asked the server to switch protocols and the server has agreed to do so.",
+          "useCases": "Commonly used when upgrading from HTTP to WebSocket. The client sends an Upgrade header and the server responds with 101 to confirm the protocol switch."
+        },
+        "102": {
+          "description": "The server has received and is processing the request, but no response is available yet.",
+          "useCases": "Used in WebDAV to prevent client timeouts on long-running operations. Signals that the server is working but hasn't finished yet."
+        },
+        "103": {
+          "description": "Used to return some response headers before final HTTP message.",
+          "useCases": "Allows browsers to start preloading resources while the server is still preparing a full response. Improves page load performance."
+        },
+        "200": {
+          "description": "The request has succeeded. The information returned with the response is dependent on the method used in the request.",
+          "useCases": "Standard response for successful GET, POST, PUT, PATCH requests. The response body contains the requested resource or result."
+        },
+        "201": {
+          "description": "The request has been fulfilled and resulted in a new resource being created.",
+          "useCases": "Returned after a successful POST request that creates a new resource. The Location header typically contains the URI of the new resource."
+        },
+        "202": {
+          "description": "The request has been accepted for processing, but the processing has not been completed.",
+          "useCases": "Used for asynchronous operations. The server accepted the request but will process it later, such as batch processing jobs."
+        },
+        "203": {
+          "description": "The server is a transforming proxy that received a 200 OK from its origin, but is returning a modified version of the response.",
+          "useCases": "Used by caching proxies or intermediaries that modify the response headers or body from an origin server."
+        },
+        "204": {
+          "description": "The server successfully processed the request, but is not returning any content.",
+          "useCases": "Returned for successful DELETE requests or PUT/PATCH when no body needs to be returned. Also used for auto-save operations."
+        },
+        "205": {
+          "description": "The server successfully processed the request, but is not returning any content and requires the requester to reset the document view.",
+          "useCases": "Instructs the client to reset the form or document after a submission. Similar to 204 but also clears user input."
+        },
+        "206": {
+          "description": "The server is delivering only part of the resource due to a range header sent by the client.",
+          "useCases": "Used for video streaming, resumable downloads, and paginated content delivery. The client requests a specific byte range using the Range header."
+        },
+        "207": {
+          "description": "The message body that follows is by default an XML message and can contain a number of separate response codes.",
+          "useCases": "Used in WebDAV for operations that affect multiple resources. Returns a status for each resource in the response body."
+        },
+        "208": {
+          "description": "The members of a DAV binding have already been enumerated in a preceding part of the response.",
+          "useCases": "Used in WebDAV to avoid repeatedly enumerating the internal members of multiple bindings to the same collection."
+        },
+        "226": {
+          "description": "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations.",
+          "useCases": "Used with HTTP delta encoding. The server returns a delta of the content rather than the full content."
+        },
+        "300": {
+          "description": "The request has more than one possible response. The user-agent or user should choose one of them.",
+          "useCases": "Used when a resource has multiple representations. The server provides a list of options for the client to choose from."
+        },
+        "301": {
+          "description": "The URL of the requested resource has been changed permanently. The new URL is given in the response.",
+          "useCases": "Use for permanent URL changes. SEO-friendly redirect that passes link equity. Browsers cache this redirect permanently."
+        },
+        "302": {
+          "description": "The URI of requested resource has been changed temporarily. The client should continue to use the original URI.",
+          "useCases": "Temporary redirect. Common for login redirects, A/B testing, and maintenance pages. Does not update bookmarks."
+        },
+        "303": {
+          "description": "The server sent this response to direct the client to get the requested resource at another URI with a GET request.",
+          "useCases": "Used after a POST/PUT/DELETE to redirect to a result page, following the Post/Redirect/Get pattern to prevent form resubmission."
+        },
+        "304": {
+          "description": "Used for caching purposes. It tells the client that the response has not been modified, so the client can continue to use the same cached version of the response.",
+          "useCases": "Returned when a client makes a conditional GET request using If-Modified-Since or If-None-Match headers and the resource hasn't changed."
+        },
+        "307": {
+          "description": "The server sends this response to direct the client to get the requested resource at another URI with same method that was used in the prior request.",
+          "useCases": "Like 302, but guarantees the HTTP method won't change. Used when temporarily moving a resource and the method must be preserved (e.g., POST stays POST)."
+        },
+        "308": {
+          "description": "The resource is now permanently located at another URI, specified by the Location: HTTP Response header.",
+          "useCases": "Like 301, but preserves the HTTP method. Ideal for permanently moving API endpoints while keeping POST requests as POST."
+        },
+        "400": {
+          "description": "The server could not understand the request due to invalid syntax.",
+          "useCases": "Returned when the request has malformed syntax, invalid request message framing, or deceptive request routing. Common for invalid JSON bodies."
+        },
+        "401": {
+          "description": "The client must authenticate itself to get the requested response.",
+          "useCases": "Returned when accessing protected resources without authentication credentials, or when credentials are invalid. The client should send auth in the next request."
+        },
+        "402": {
+          "description": "This response code is reserved for future use. Initial aim was for digital payment systems.",
+          "useCases": "Used by some APIs to indicate quota exceeded or subscription required. Not part of the official HTTP spec but used in practice."
+        },
+        "403": {
+          "description": "The client does not have access rights to the content. Unlike 401, the client's identity is known to the server.",
+          "useCases": "The user is authenticated but lacks permission. Common for role-based access control. Also used to hide existence of resources."
+        },
+        "404": {
+          "description": "The server can not find the requested resource. In the browser, this means the URL is not recognized.",
+          "useCases": "The most well-known HTTP status. Used when a resource doesn't exist or to deliberately hide the existence of a resource (alternative to 403)."
+        },
+        "405": {
+          "description": "The request method is known by the server but is not supported by the target resource.",
+          "useCases": "Returned when a POST is sent to a GET-only endpoint, or when trying to DELETE a read-only resource. The Allow header should list valid methods."
+        },
+        "406": {
+          "description": "The server cannot produce a response matching the list of acceptable values defined in the request's content negotiation headers.",
+          "useCases": "Returned when the Accept header requests a format (e.g., XML) that the server cannot provide."
+        },
+        "407": {
+          "description": "Authentication is needed to be done by a proxy.",
+          "useCases": "Similar to 401, but authentication must be performed against a proxy server before the request can proceed."
+        },
+        "408": {
+          "description": "The server would like to shut down this unused connection. Some servers send this on idle connections.",
+          "useCases": "Returned when a client takes too long to send the complete request. The server may close the connection or request a retry."
+        },
+        "409": {
+          "description": "This response is sent when a request conflicts with the current state of the server.",
+          "useCases": "Common when trying to create a duplicate resource, version conflicts in optimistic locking, or editing conflicts in collaborative systems."
+        },
+        "410": {
+          "description": "This response is sent when the requested content has been permanently deleted from server, with no forwarding address.",
+          "useCases": "More permanent than 404. Signals that the resource intentionally no longer exists. Helps search engines remove stale indexed pages."
+        },
+        "411": {
+          "description": "Server rejected the request because the Content-Length header field is not defined and the server requires it.",
+          "useCases": "Returned when sending a request body (e.g., POST) without specifying the Content-Length header, which the server requires."
+        },
+        "412": {
+          "description": "The client has indicated preconditions in its headers which the server does not meet.",
+          "useCases": "Used in conditional requests (If-Match, If-Unmodified-Since). Common for optimistic concurrency control in REST APIs."
+        },
+        "413": {
+          "description": "Request entity is larger than limits defined by server.",
+          "useCases": "Returned when uploading a file that exceeds the server's maximum allowed size, or when a request body is too large."
+        },
+        "414": {
+          "description": "The URI requested by the client is longer than the server is willing to interpret.",
+          "useCases": "Returned when a GET request URL is too long. Common when query parameters are used for large amounts of data instead of a POST body."
+        },
+        "415": {
+          "description": "The media format of the requested data is not supported by the server.",
+          "useCases": "Returned when sending application/xml to an endpoint that only accepts application/json, or sending an unsupported file type for upload."
+        },
+        "416": {
+          "description": "The range specified by the Range header field in the request can't be fulfilled.",
+          "useCases": "Returned for partial content requests when the requested byte range is out of bounds for the resource."
+        },
+        "417": {
+          "description": "The expectation indicated by the Expect request header field can't be met by the server.",
+          "useCases": "Returned when a client sends Expect: 100-continue but the server cannot or will not meet this expectation."
+        },
+        "418": {
+          "description": "The server refuses the attempt to brew coffee with a teapot.",
+          "useCases": "An April Fools' joke from RFC 2324. Used humorously or to signal that a resource refuses a particular type of request."
+        },
+        "422": {
+          "description": "The request was well-formed but was unable to be followed due to semantic errors.",
+          "useCases": "Used in REST APIs when validation fails (e.g., required fields missing, invalid field values). The structure is valid but the content is semantically incorrect."
+        },
+        "423": {
+          "description": "The resource that is being accessed is locked.",
+          "useCases": "Used in WebDAV when a resource is locked (e.g., checked out by another user) and cannot be modified."
+        },
+        "424": {
+          "description": "The request failed due to failure of a previous request.",
+          "useCases": "WebDAV status. Used when a batch operation fails because a dependency of the current operation failed."
+        },
+        "425": {
+          "description": "Indicates that the server is unwilling to risk processing a request that might be replayed.",
+          "useCases": "Used with TLS 1.3 early data (0-RTT). Prevents replay attacks by refusing to process requests that may be replayed."
+        },
+        "426": {
+          "description": "The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol.",
+          "useCases": "Used to require the client to switch to a newer protocol, such as upgrading from HTTP/1.1 to HTTP/2."
+        },
+        "428": {
+          "description": "The origin server requires the request to be conditional.",
+          "useCases": "Forces clients to use conditional requests (ETags) to avoid lost-update problems in concurrent modifications of REST resources."
+        },
+        "429": {
+          "description": "The user has sent too many requests in a given amount of time (\"rate limiting\").",
+          "useCases": "API rate limiting. The Retry-After header indicates when the client can try again. Common in public APIs to prevent abuse."
+        },
+        "431": {
+          "description": "The server is unwilling to process the request because its header fields are too large.",
+          "useCases": "Returned when request headers (cookies, authorization tokens, custom headers) exceed the server's size limit."
+        },
+        "451": {
+          "description": "The user agent requested a resource that cannot legally be provided.",
+          "useCases": "Content blocked due to legal requirements such as GDPR, DMCA, court orders, or geo-based legal restrictions."
+        },
+        "500": {
+          "description": "The server has encountered a situation it doesn't know how to handle.",
+          "useCases": "Generic error for unhandled exceptions. Indicates a bug or unexpected condition on the server. Logs should be checked to diagnose the root cause."
+        },
+        "501": {
+          "description": "The request method is not supported by the server and cannot be handled.",
+          "useCases": "Returned when the server doesn't support a particular HTTP method at all. Different from 405 which means the method isn't supported for this specific resource."
+        },
+        "502": {
+          "description": "The server, while working as a gateway to get a response needed to handle the request, got an invalid response.",
+          "useCases": "Occurs when a reverse proxy (nginx, load balancer) receives an invalid response from the upstream application server. Often indicates the backend service crashed."
+        },
+        "503": {
+          "description": "The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.",
+          "useCases": "Used during scheduled maintenance or when the server is overloaded. Include Retry-After header to indicate when service will be restored."
+        },
+        "504": {
+          "description": "The server is acting as a gateway and cannot get a response in time.",
+          "useCases": "A reverse proxy didn't receive a timely response from the upstream server. Common with slow database queries or long-running operations."
+        },
+        "505": {
+          "description": "The HTTP version used in the request is not supported by the server.",
+          "useCases": "Returned when the server doesn't support the HTTP protocol version used in the request (e.g., server doesn't support HTTP/2)."
+        },
+        "506": {
+          "description": "The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself.",
+          "useCases": "Internal server misconfiguration. A variant resource is itself configured to participate in content negotiation, creating a circular reference."
+        },
+        "507": {
+          "description": "The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request.",
+          "useCases": "WebDAV status. Returned when the server runs out of disk space or storage quota during a file upload or creation operation."
+        },
+        "508": {
+          "description": "The server detected an infinite loop while processing the request.",
+          "useCases": "WebDAV status. Detected when processing a Depth: infinity request that would create an infinite recursive loop."
+        },
+        "510": {
+          "description": "Further extensions to the request are required for the server to fulfil it.",
+          "useCases": "The server needs the client to use an extension to the HTTP protocol it announced in the response to process the request."
+        },
+        "511": {
+          "description": "The client needs to authenticate to gain network access.",
+          "useCases": "Used by network access control points (captive portals, Wi-Fi login pages) to redirect users to an authentication page before allowing internet access."
+        }
       }
     },
     "userAgentParser": {

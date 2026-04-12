@@ -180,8 +180,9 @@
       "standardFormat": "Estándar (con guiones)",
       "simpleFormat": "Simple (sin guiones)",
       "nonStandard": "Versión {version} (No estándar)",
+      "v7desc": "Timestamp Unix en ms + random (recomendado para sistemas modernos)",
       "tags": {
-        "v1v5": "v1-v5",
+        "v1v7": "v1-v7",
         "batch": "Lotes"
       }
     },
@@ -825,66 +826,246 @@
       "description": "Descripción",
       "useCases": "Casos de uso",
       "codes": {
-        "100": { "description": "El servidor ha recibido las cabeceras de la solicitud y el cliente debe proceder a enviar el cuerpo.", "useCases": "Se usa cuando un cliente necesita enviar un cuerpo de solicitud grande. El servidor indica que está listo antes de que el cliente envíe el cuerpo, ahorrando ancho de banda si el servidor lo rechazaría de todas formas." },
-        "101": { "description": "El solicitante ha pedido al servidor cambiar de protocolo y el servidor ha aceptado hacerlo.", "useCases": "Se usa habitualmente al pasar de HTTP a WebSocket. El cliente envía una cabecera Upgrade y el servidor responde con 101 para confirmar el cambio de protocolo." },
-        "102": { "description": "El servidor ha recibido la solicitud y la está procesando, pero todavía no hay respuesta disponible.", "useCases": "Se usa en WebDAV para evitar que el cliente agote el tiempo de espera en operaciones de larga duración. Indica que el servidor está trabajando pero no ha terminado." },
-        "103": { "description": "Se usa para devolver algunas cabeceras de respuesta antes del mensaje HTTP final.", "useCases": "Permite a los navegadores comenzar a precargar recursos mientras el servidor todavía prepara la respuesta completa. Mejora el rendimiento de carga de páginas." },
-        "200": { "description": "La solicitud se ha completado con éxito. La información devuelta depende del método utilizado.", "useCases": "Respuesta estándar para solicitudes GET, POST, PUT y PATCH exitosas. El cuerpo de la respuesta contiene el recurso solicitado o el resultado." },
-        "201": { "description": "La solicitud se ha completado y ha resultado en la creación de un nuevo recurso.", "useCases": "Se devuelve tras una solicitud POST exitosa que crea un nuevo recurso. La cabecera Location suele contener la URI del nuevo recurso." },
-        "202": { "description": "La solicitud ha sido aceptada para su procesamiento, pero el procesamiento no ha concluido.", "useCases": "Se usa para operaciones asíncronas. El servidor aceptó la solicitud pero la procesará más adelante, como en trabajos de procesamiento por lotes." },
-        "203": { "description": "El servidor es un proxy transformador que recibió un 200 OK de su origen pero devuelve una versión modificada de la respuesta.", "useCases": "Se usa en proxies de caché o intermediarios que modifican las cabeceras o el cuerpo de la respuesta del servidor de origen." },
-        "204": { "description": "El servidor procesó la solicitud correctamente pero no devuelve ningún contenido.", "useCases": "Se devuelve en solicitudes DELETE exitosas o en PUT/PATCH cuando no es necesario devolver cuerpo. También se usa en operaciones de autoguardado." },
-        "205": { "description": "El servidor procesó la solicitud correctamente pero no devuelve contenido y requiere que el solicitante restablezca la vista del documento.", "useCases": "Indica al cliente que debe limpiar el formulario o documento tras un envío. Similar a 204, pero también borra la entrada del usuario." },
-        "206": { "description": "El servidor entrega solo una parte del recurso debido a una cabecera de rango enviada por el cliente.", "useCases": "Se usa para streaming de vídeo, descargas reanudables y entrega de contenido paginado. El cliente solicita un rango de bytes específico con la cabecera Range." },
-        "207": { "description": "El cuerpo del mensaje es por defecto un mensaje XML y puede contener varios códigos de respuesta separados.", "useCases": "Se usa en WebDAV para operaciones que afectan a múltiples recursos. Devuelve un estado para cada recurso en el cuerpo de la respuesta." },
-        "208": { "description": "Los miembros de un enlace DAV ya han sido enumerados en una parte anterior de la respuesta.", "useCases": "Se usa en WebDAV para evitar enumerar repetidamente los miembros internos de múltiples enlaces a la misma colección." },
-        "226": { "description": "El servidor ha satisfecho una solicitud GET y la respuesta representa el resultado de una o más manipulaciones de instancia.", "useCases": "Se usa con codificación delta HTTP. El servidor devuelve un delta del contenido en lugar del contenido completo." },
-        "300": { "description": "La solicitud tiene más de una posible respuesta. El agente de usuario o el usuario debe elegir una de ellas.", "useCases": "Se usa cuando un recurso tiene múltiples representaciones. El servidor proporciona una lista de opciones para que el cliente elija." },
-        "301": { "description": "La URL del recurso solicitado ha cambiado permanentemente. La nueva URL se indica en la respuesta.", "useCases": "Se usa para cambios permanentes de URL. Redirección favorable para SEO que transfiere la autoridad del enlace. Los navegadores almacenan esta redirección en caché de forma permanente." },
-        "302": { "description": "La URI del recurso solicitado ha cambiado temporalmente. El cliente debe seguir usando la URI original.", "useCases": "Redirección temporal. Común en redirecciones de inicio de sesión, pruebas A/B y páginas de mantenimiento. No actualiza los marcadores." },
-        "303": { "description": "El servidor envió esta respuesta para dirigir al cliente a obtener el recurso solicitado en otra URI con una solicitud GET.", "useCases": "Se usa tras un POST/PUT/DELETE para redirigir a una página de resultado, siguiendo el patrón Post/Redirect/Get para evitar el reenvío de formularios." },
-        "304": { "description": "Se usa para fines de caché. Indica al cliente que la respuesta no ha sido modificada, por lo que puede seguir usando la versión en caché.", "useCases": "Se devuelve cuando un cliente hace una solicitud GET condicional usando If-Modified-Since o If-None-Match y el recurso no ha cambiado." },
-        "307": { "description": "El servidor envía esta respuesta para dirigir al cliente a obtener el recurso en otra URI usando el mismo método que en la solicitud anterior.", "useCases": "Como 302, pero garantiza que el método HTTP no cambiará. Se usa para mover temporalmente un recurso preservando el método (p. ej., POST sigue siendo POST)." },
-        "308": { "description": "El recurso se encuentra ahora permanentemente en otra URI, especificada por la cabecera Location.", "useCases": "Como 301, pero preserva el método HTTP. Ideal para mover permanentemente puntos de acceso de API manteniendo las solicitudes POST como POST." },
-        "400": { "description": "El servidor no pudo entender la solicitud debido a una sintaxis no válida.", "useCases": "Se devuelve cuando la solicitud tiene sintaxis mal formada, encuadre de mensaje no válido o enrutamiento engañoso. Común en cuerpos JSON inválidos." },
-        "401": { "description": "El cliente debe autenticarse para obtener la respuesta solicitada.", "useCases": "Se devuelve al acceder a recursos protegidos sin credenciales de autenticación o cuando las credenciales son inválidas. El cliente debe enviar la autenticación en la siguiente solicitud." },
-        "402": { "description": "Este código está reservado para uso futuro. Su objetivo inicial era para sistemas de pago digital.", "useCases": "Algunos APIs lo usan para indicar que se ha superado la cuota o que se requiere suscripción. No forma parte de la especificación HTTP oficial pero se usa en la práctica." },
-        "403": { "description": "El cliente no tiene derechos de acceso al contenido. A diferencia de 401, la identidad del cliente es conocida por el servidor.", "useCases": "El usuario está autenticado pero carece de permiso. Común en control de acceso basado en roles. También se usa para ocultar la existencia de recursos." },
-        "404": { "description": "El servidor no puede encontrar el recurso solicitado. En el navegador, significa que la URL no es reconocida.", "useCases": "El código HTTP más conocido. Se usa cuando un recurso no existe o para ocultar deliberadamente su existencia (alternativa a 403)." },
-        "405": { "description": "El método de solicitud es conocido por el servidor pero no es compatible con el recurso de destino.", "useCases": "Se devuelve cuando se envía un POST a un endpoint solo-GET, o al intentar eliminar un recurso de solo lectura. La cabecera Allow debe listar los métodos válidos." },
-        "406": { "description": "El servidor no puede producir una respuesta que coincida con los valores aceptables definidos en las cabeceras de negociación de contenido.", "useCases": "Se devuelve cuando la cabecera Accept solicita un formato (p. ej., XML) que el servidor no puede proporcionar." },
-        "407": { "description": "La autenticación debe realizarse a través de un proxy.", "useCases": "Similar a 401, pero la autenticación debe realizarse contra un servidor proxy antes de que la solicitud pueda continuar." },
-        "408": { "description": "El servidor desearía cerrar esta conexión sin uso. Algunos servidores lo envían en conexiones inactivas.", "useCases": "Se devuelve cuando un cliente tarda demasiado en enviar la solicitud completa. El servidor puede cerrar la conexión o solicitar un reintento." },
-        "409": { "description": "Esta respuesta se envía cuando una solicitud entra en conflicto con el estado actual del servidor.", "useCases": "Común al intentar crear un recurso duplicado, conflictos de versión en bloqueo optimista o conflictos de edición en sistemas colaborativos." },
-        "410": { "description": "Esta respuesta se envía cuando el contenido solicitado ha sido eliminado permanentemente del servidor sin dirección de reenvío.", "useCases": "Más permanente que 404. Indica que el recurso ya no existe intencionalmente. Ayuda a los motores de búsqueda a eliminar páginas indexadas obsoletas." },
-        "411": { "description": "El servidor rechazó la solicitud porque el campo de cabecera Content-Length no está definido y el servidor lo requiere.", "useCases": "Se devuelve cuando se envía un cuerpo de solicitud (p. ej., POST) sin especificar la cabecera Content-Length que el servidor requiere." },
-        "412": { "description": "El cliente ha indicado precondiciones en sus cabeceras que el servidor no cumple.", "useCases": "Se usa en solicitudes condicionales (If-Match, If-Unmodified-Since). Común para control de concurrencia optimista en APIs REST." },
-        "413": { "description": "La entidad de la solicitud es mayor que los límites definidos por el servidor.", "useCases": "Se devuelve al subir un archivo que supera el tamaño máximo permitido por el servidor, o cuando el cuerpo de la solicitud es demasiado grande." },
-        "414": { "description": "La URI solicitada por el cliente es más larga de lo que el servidor está dispuesto a interpretar.", "useCases": "Se devuelve cuando la URL de una solicitud GET es demasiado larga. Común cuando se usan parámetros de consulta para grandes cantidades de datos en lugar de un cuerpo POST." },
-        "415": { "description": "El formato de los datos solicitados no es compatible con el servidor.", "useCases": "Se devuelve al enviar application/xml a un endpoint que solo acepta application/json, o al enviar un tipo de archivo no compatible para subir." },
-        "416": { "description": "El rango especificado por la cabecera Range no puede ser satisfecho.", "useCases": "Se devuelve para solicitudes de contenido parcial cuando el rango de bytes solicitado está fuera de los límites del recurso." },
-        "417": { "description": "La expectativa indicada por la cabecera Expect no puede ser satisfecha por el servidor.", "useCases": "Se devuelve cuando un cliente envía Expect: 100-continue pero el servidor no puede o no quiere satisfacer esta expectativa." },
-        "418": { "description": "El servidor rechaza el intento de preparar café con una tetera.", "useCases": "Una broma del Día de los Inocentes del RFC 2324. Se usa con humor o para indicar que un recurso rechaza un tipo particular de solicitud." },
-        "422": { "description": "La solicitud estaba bien formada pero no pudo ser procesada debido a errores semánticos.", "useCases": "Se usa en APIs REST cuando falla la validación (p. ej., campos requeridos ausentes, valores de campo inválidos). La estructura es válida pero el contenido es semánticamente incorrecto." },
-        "423": { "description": "El recurso al que se está accediendo está bloqueado.", "useCases": "Se usa en WebDAV cuando un recurso está bloqueado (p. ej., extraído por otro usuario) y no puede ser modificado." },
-        "424": { "description": "La solicitud falló debido al fallo de una solicitud anterior.", "useCases": "Estado WebDAV. Se usa cuando una operación por lotes falla porque falló una dependencia de la operación actual." },
-        "425": { "description": "Indica que el servidor no está dispuesto a arriesgarse a procesar una solicitud que podría ser reproducida.", "useCases": "Se usa con datos tempranos TLS 1.3 (0-RTT). Previene ataques de repetición rechazando procesar solicitudes que podrían ser reproducidas." },
-        "426": { "description": "El servidor se niega a realizar la solicitud usando el protocolo actual pero podría estar dispuesto a hacerlo si el cliente actualiza a un protocolo diferente.", "useCases": "Se usa para requerir que el cliente cambie a un protocolo más nuevo, como actualizar de HTTP/1.1 a HTTP/2." },
-        "428": { "description": "El servidor de origen requiere que la solicitud sea condicional.", "useCases": "Obliga a los clientes a usar solicitudes condicionales (ETags) para evitar problemas de actualización perdida en modificaciones concurrentes de recursos REST." },
-        "429": { "description": "El usuario ha enviado demasiadas solicitudes en un período de tiempo determinado (\"limitación de velocidad\").", "useCases": "Limitación de velocidad en APIs. La cabecera Retry-After indica cuándo el cliente puede intentarlo de nuevo. Común en APIs públicas para prevenir abusos." },
-        "431": { "description": "El servidor no está dispuesto a procesar la solicitud porque sus campos de cabecera son demasiado grandes.", "useCases": "Se devuelve cuando las cabeceras de solicitud (cookies, tokens de autorización, cabeceras personalizadas) superan el límite de tamaño del servidor." },
-        "451": { "description": "El agente de usuario solicitó un recurso que no puede ser proporcionado legalmente.", "useCases": "Contenido bloqueado por requisitos legales como GDPR, DMCA, órdenes judiciales o restricciones legales basadas en ubicación geográfica." },
-        "500": { "description": "El servidor ha encontrado una situación que no sabe cómo manejar.", "useCases": "Error genérico para excepciones no manejadas. Indica un error o condición inesperada en el servidor. Se deben revisar los registros para diagnosticar la causa raíz." },
-        "501": { "description": "El método de solicitud no es compatible con el servidor y no puede ser manejado.", "useCases": "Se devuelve cuando el servidor no admite un método HTTP particular en absoluto. Diferente de 405, que significa que el método no es compatible para este recurso específico." },
-        "502": { "description": "El servidor, actuando como gateway para obtener una respuesta necesaria para manejar la solicitud, recibió una respuesta no válida.", "useCases": "Ocurre cuando un proxy inverso (nginx, balanceador de carga) recibe una respuesta no válida del servidor de aplicaciones. A menudo indica que el servicio backend se ha caído." },
-        "503": { "description": "El servidor no está listo para manejar la solicitud. Las causas comunes son un servidor inactivo por mantenimiento o sobrecargado.", "useCases": "Se usa durante mantenimiento programado o cuando el servidor está sobrecargado. Incluir la cabecera Retry-After para indicar cuándo se restaurará el servicio." },
-        "504": { "description": "El servidor actúa como gateway y no puede obtener una respuesta a tiempo.", "useCases": "Un proxy inverso no recibió una respuesta oportuna del servidor upstream. Común con consultas de base de datos lentas u operaciones de larga duración." },
-        "505": { "description": "La versión HTTP usada en la solicitud no es compatible con el servidor.", "useCases": "Se devuelve cuando el servidor no admite la versión del protocolo HTTP usada en la solicitud (p. ej., el servidor no admite HTTP/2)." },
-        "506": { "description": "El servidor tiene un error de configuración interno: el recurso de variante elegido está configurado para participar en negociación de contenido transparente.", "useCases": "Configuración incorrecta interna del servidor. Un recurso de variante está configurado para participar en negociación de contenido, creando una referencia circular." },
-        "507": { "description": "El método no pudo realizarse en el recurso porque el servidor no puede almacenar la representación necesaria para completar la solicitud.", "useCases": "Estado WebDAV. Se devuelve cuando el servidor se queda sin espacio en disco o cuota de almacenamiento durante una operación de subida o creación de archivos." },
-        "508": { "description": "El servidor detectó un bucle infinito mientras procesaba la solicitud.", "useCases": "Estado WebDAV. Se detecta al procesar una solicitud Depth: infinity que crearía un bucle recursivo infinito." },
-        "510": { "description": "Se requieren más extensiones de la solicitud para que el servidor pueda satisfacerla.", "useCases": "El servidor necesita que el cliente use una extensión del protocolo HTTP que anunció en la respuesta para procesar la solicitud." },
-        "511": { "description": "El cliente necesita autenticarse para obtener acceso a la red.", "useCases": "Se usa en puntos de control de acceso a la red (portales cautivos, páginas de inicio de sesión Wi-Fi) para redirigir a los usuarios a una página de autenticación antes de permitir el acceso a internet." }
+        "100": {
+          "description": "El servidor ha recibido las cabeceras de la solicitud y el cliente debe proceder a enviar el cuerpo.",
+          "useCases": "Se usa cuando un cliente necesita enviar un cuerpo de solicitud grande. El servidor indica que está listo antes de que el cliente envíe el cuerpo, ahorrando ancho de banda si el servidor lo rechazaría de todas formas."
+        },
+        "101": {
+          "description": "El solicitante ha pedido al servidor cambiar de protocolo y el servidor ha aceptado hacerlo.",
+          "useCases": "Se usa habitualmente al pasar de HTTP a WebSocket. El cliente envía una cabecera Upgrade y el servidor responde con 101 para confirmar el cambio de protocolo."
+        },
+        "102": {
+          "description": "El servidor ha recibido la solicitud y la está procesando, pero todavía no hay respuesta disponible.",
+          "useCases": "Se usa en WebDAV para evitar que el cliente agote el tiempo de espera en operaciones de larga duración. Indica que el servidor está trabajando pero no ha terminado."
+        },
+        "103": {
+          "description": "Se usa para devolver algunas cabeceras de respuesta antes del mensaje HTTP final.",
+          "useCases": "Permite a los navegadores comenzar a precargar recursos mientras el servidor todavía prepara la respuesta completa. Mejora el rendimiento de carga de páginas."
+        },
+        "200": {
+          "description": "La solicitud se ha completado con éxito. La información devuelta depende del método utilizado.",
+          "useCases": "Respuesta estándar para solicitudes GET, POST, PUT y PATCH exitosas. El cuerpo de la respuesta contiene el recurso solicitado o el resultado."
+        },
+        "201": {
+          "description": "La solicitud se ha completado y ha resultado en la creación de un nuevo recurso.",
+          "useCases": "Se devuelve tras una solicitud POST exitosa que crea un nuevo recurso. La cabecera Location suele contener la URI del nuevo recurso."
+        },
+        "202": {
+          "description": "La solicitud ha sido aceptada para su procesamiento, pero el procesamiento no ha concluido.",
+          "useCases": "Se usa para operaciones asíncronas. El servidor aceptó la solicitud pero la procesará más adelante, como en trabajos de procesamiento por lotes."
+        },
+        "203": {
+          "description": "El servidor es un proxy transformador que recibió un 200 OK de su origen pero devuelve una versión modificada de la respuesta.",
+          "useCases": "Se usa en proxies de caché o intermediarios que modifican las cabeceras o el cuerpo de la respuesta del servidor de origen."
+        },
+        "204": {
+          "description": "El servidor procesó la solicitud correctamente pero no devuelve ningún contenido.",
+          "useCases": "Se devuelve en solicitudes DELETE exitosas o en PUT/PATCH cuando no es necesario devolver cuerpo. También se usa en operaciones de autoguardado."
+        },
+        "205": {
+          "description": "El servidor procesó la solicitud correctamente pero no devuelve contenido y requiere que el solicitante restablezca la vista del documento.",
+          "useCases": "Indica al cliente que debe limpiar el formulario o documento tras un envío. Similar a 204, pero también borra la entrada del usuario."
+        },
+        "206": {
+          "description": "El servidor entrega solo una parte del recurso debido a una cabecera de rango enviada por el cliente.",
+          "useCases": "Se usa para streaming de vídeo, descargas reanudables y entrega de contenido paginado. El cliente solicita un rango de bytes específico con la cabecera Range."
+        },
+        "207": {
+          "description": "El cuerpo del mensaje es por defecto un mensaje XML y puede contener varios códigos de respuesta separados.",
+          "useCases": "Se usa en WebDAV para operaciones que afectan a múltiples recursos. Devuelve un estado para cada recurso en el cuerpo de la respuesta."
+        },
+        "208": {
+          "description": "Los miembros de un enlace DAV ya han sido enumerados en una parte anterior de la respuesta.",
+          "useCases": "Se usa en WebDAV para evitar enumerar repetidamente los miembros internos de múltiples enlaces a la misma colección."
+        },
+        "226": {
+          "description": "El servidor ha satisfecho una solicitud GET y la respuesta representa el resultado de una o más manipulaciones de instancia.",
+          "useCases": "Se usa con codificación delta HTTP. El servidor devuelve un delta del contenido en lugar del contenido completo."
+        },
+        "300": {
+          "description": "La solicitud tiene más de una posible respuesta. El agente de usuario o el usuario debe elegir una de ellas.",
+          "useCases": "Se usa cuando un recurso tiene múltiples representaciones. El servidor proporciona una lista de opciones para que el cliente elija."
+        },
+        "301": {
+          "description": "La URL del recurso solicitado ha cambiado permanentemente. La nueva URL se indica en la respuesta.",
+          "useCases": "Se usa para cambios permanentes de URL. Redirección favorable para SEO que transfiere la autoridad del enlace. Los navegadores almacenan esta redirección en caché de forma permanente."
+        },
+        "302": {
+          "description": "La URI del recurso solicitado ha cambiado temporalmente. El cliente debe seguir usando la URI original.",
+          "useCases": "Redirección temporal. Común en redirecciones de inicio de sesión, pruebas A/B y páginas de mantenimiento. No actualiza los marcadores."
+        },
+        "303": {
+          "description": "El servidor envió esta respuesta para dirigir al cliente a obtener el recurso solicitado en otra URI con una solicitud GET.",
+          "useCases": "Se usa tras un POST/PUT/DELETE para redirigir a una página de resultado, siguiendo el patrón Post/Redirect/Get para evitar el reenvío de formularios."
+        },
+        "304": {
+          "description": "Se usa para fines de caché. Indica al cliente que la respuesta no ha sido modificada, por lo que puede seguir usando la versión en caché.",
+          "useCases": "Se devuelve cuando un cliente hace una solicitud GET condicional usando If-Modified-Since o If-None-Match y el recurso no ha cambiado."
+        },
+        "307": {
+          "description": "El servidor envía esta respuesta para dirigir al cliente a obtener el recurso en otra URI usando el mismo método que en la solicitud anterior.",
+          "useCases": "Como 302, pero garantiza que el método HTTP no cambiará. Se usa para mover temporalmente un recurso preservando el método (p. ej., POST sigue siendo POST)."
+        },
+        "308": {
+          "description": "El recurso se encuentra ahora permanentemente en otra URI, especificada por la cabecera Location.",
+          "useCases": "Como 301, pero preserva el método HTTP. Ideal para mover permanentemente puntos de acceso de API manteniendo las solicitudes POST como POST."
+        },
+        "400": {
+          "description": "El servidor no pudo entender la solicitud debido a una sintaxis no válida.",
+          "useCases": "Se devuelve cuando la solicitud tiene sintaxis mal formada, encuadre de mensaje no válido o enrutamiento engañoso. Común en cuerpos JSON inválidos."
+        },
+        "401": {
+          "description": "El cliente debe autenticarse para obtener la respuesta solicitada.",
+          "useCases": "Se devuelve al acceder a recursos protegidos sin credenciales de autenticación o cuando las credenciales son inválidas. El cliente debe enviar la autenticación en la siguiente solicitud."
+        },
+        "402": {
+          "description": "Este código está reservado para uso futuro. Su objetivo inicial era para sistemas de pago digital.",
+          "useCases": "Algunos APIs lo usan para indicar que se ha superado la cuota o que se requiere suscripción. No forma parte de la especificación HTTP oficial pero se usa en la práctica."
+        },
+        "403": {
+          "description": "El cliente no tiene derechos de acceso al contenido. A diferencia de 401, la identidad del cliente es conocida por el servidor.",
+          "useCases": "El usuario está autenticado pero carece de permiso. Común en control de acceso basado en roles. También se usa para ocultar la existencia de recursos."
+        },
+        "404": {
+          "description": "El servidor no puede encontrar el recurso solicitado. En el navegador, significa que la URL no es reconocida.",
+          "useCases": "El código HTTP más conocido. Se usa cuando un recurso no existe o para ocultar deliberadamente su existencia (alternativa a 403)."
+        },
+        "405": {
+          "description": "El método de solicitud es conocido por el servidor pero no es compatible con el recurso de destino.",
+          "useCases": "Se devuelve cuando se envía un POST a un endpoint solo-GET, o al intentar eliminar un recurso de solo lectura. La cabecera Allow debe listar los métodos válidos."
+        },
+        "406": {
+          "description": "El servidor no puede producir una respuesta que coincida con los valores aceptables definidos en las cabeceras de negociación de contenido.",
+          "useCases": "Se devuelve cuando la cabecera Accept solicita un formato (p. ej., XML) que el servidor no puede proporcionar."
+        },
+        "407": {
+          "description": "La autenticación debe realizarse a través de un proxy.",
+          "useCases": "Similar a 401, pero la autenticación debe realizarse contra un servidor proxy antes de que la solicitud pueda continuar."
+        },
+        "408": {
+          "description": "El servidor desearía cerrar esta conexión sin uso. Algunos servidores lo envían en conexiones inactivas.",
+          "useCases": "Se devuelve cuando un cliente tarda demasiado en enviar la solicitud completa. El servidor puede cerrar la conexión o solicitar un reintento."
+        },
+        "409": {
+          "description": "Esta respuesta se envía cuando una solicitud entra en conflicto con el estado actual del servidor.",
+          "useCases": "Común al intentar crear un recurso duplicado, conflictos de versión en bloqueo optimista o conflictos de edición en sistemas colaborativos."
+        },
+        "410": {
+          "description": "Esta respuesta se envía cuando el contenido solicitado ha sido eliminado permanentemente del servidor sin dirección de reenvío.",
+          "useCases": "Más permanente que 404. Indica que el recurso ya no existe intencionalmente. Ayuda a los motores de búsqueda a eliminar páginas indexadas obsoletas."
+        },
+        "411": {
+          "description": "El servidor rechazó la solicitud porque el campo de cabecera Content-Length no está definido y el servidor lo requiere.",
+          "useCases": "Se devuelve cuando se envía un cuerpo de solicitud (p. ej., POST) sin especificar la cabecera Content-Length que el servidor requiere."
+        },
+        "412": {
+          "description": "El cliente ha indicado precondiciones en sus cabeceras que el servidor no cumple.",
+          "useCases": "Se usa en solicitudes condicionales (If-Match, If-Unmodified-Since). Común para control de concurrencia optimista en APIs REST."
+        },
+        "413": {
+          "description": "La entidad de la solicitud es mayor que los límites definidos por el servidor.",
+          "useCases": "Se devuelve al subir un archivo que supera el tamaño máximo permitido por el servidor, o cuando el cuerpo de la solicitud es demasiado grande."
+        },
+        "414": {
+          "description": "La URI solicitada por el cliente es más larga de lo que el servidor está dispuesto a interpretar.",
+          "useCases": "Se devuelve cuando la URL de una solicitud GET es demasiado larga. Común cuando se usan parámetros de consulta para grandes cantidades de datos en lugar de un cuerpo POST."
+        },
+        "415": {
+          "description": "El formato de los datos solicitados no es compatible con el servidor.",
+          "useCases": "Se devuelve al enviar application/xml a un endpoint que solo acepta application/json, o al enviar un tipo de archivo no compatible para subir."
+        },
+        "416": {
+          "description": "El rango especificado por la cabecera Range no puede ser satisfecho.",
+          "useCases": "Se devuelve para solicitudes de contenido parcial cuando el rango de bytes solicitado está fuera de los límites del recurso."
+        },
+        "417": {
+          "description": "La expectativa indicada por la cabecera Expect no puede ser satisfecha por el servidor.",
+          "useCases": "Se devuelve cuando un cliente envía Expect: 100-continue pero el servidor no puede o no quiere satisfacer esta expectativa."
+        },
+        "418": {
+          "description": "El servidor rechaza el intento de preparar café con una tetera.",
+          "useCases": "Una broma del Día de los Inocentes del RFC 2324. Se usa con humor o para indicar que un recurso rechaza un tipo particular de solicitud."
+        },
+        "422": {
+          "description": "La solicitud estaba bien formada pero no pudo ser procesada debido a errores semánticos.",
+          "useCases": "Se usa en APIs REST cuando falla la validación (p. ej., campos requeridos ausentes, valores de campo inválidos). La estructura es válida pero el contenido es semánticamente incorrecto."
+        },
+        "423": {
+          "description": "El recurso al que se está accediendo está bloqueado.",
+          "useCases": "Se usa en WebDAV cuando un recurso está bloqueado (p. ej., extraído por otro usuario) y no puede ser modificado."
+        },
+        "424": {
+          "description": "La solicitud falló debido al fallo de una solicitud anterior.",
+          "useCases": "Estado WebDAV. Se usa cuando una operación por lotes falla porque falló una dependencia de la operación actual."
+        },
+        "425": {
+          "description": "Indica que el servidor no está dispuesto a arriesgarse a procesar una solicitud que podría ser reproducida.",
+          "useCases": "Se usa con datos tempranos TLS 1.3 (0-RTT). Previene ataques de repetición rechazando procesar solicitudes que podrían ser reproducidas."
+        },
+        "426": {
+          "description": "El servidor se niega a realizar la solicitud usando el protocolo actual pero podría estar dispuesto a hacerlo si el cliente actualiza a un protocolo diferente.",
+          "useCases": "Se usa para requerir que el cliente cambie a un protocolo más nuevo, como actualizar de HTTP/1.1 a HTTP/2."
+        },
+        "428": {
+          "description": "El servidor de origen requiere que la solicitud sea condicional.",
+          "useCases": "Obliga a los clientes a usar solicitudes condicionales (ETags) para evitar problemas de actualización perdida en modificaciones concurrentes de recursos REST."
+        },
+        "429": {
+          "description": "El usuario ha enviado demasiadas solicitudes en un período de tiempo determinado (\"limitación de velocidad\").",
+          "useCases": "Limitación de velocidad en APIs. La cabecera Retry-After indica cuándo el cliente puede intentarlo de nuevo. Común en APIs públicas para prevenir abusos."
+        },
+        "431": {
+          "description": "El servidor no está dispuesto a procesar la solicitud porque sus campos de cabecera son demasiado grandes.",
+          "useCases": "Se devuelve cuando las cabeceras de solicitud (cookies, tokens de autorización, cabeceras personalizadas) superan el límite de tamaño del servidor."
+        },
+        "451": {
+          "description": "El agente de usuario solicitó un recurso que no puede ser proporcionado legalmente.",
+          "useCases": "Contenido bloqueado por requisitos legales como GDPR, DMCA, órdenes judiciales o restricciones legales basadas en ubicación geográfica."
+        },
+        "500": {
+          "description": "El servidor ha encontrado una situación que no sabe cómo manejar.",
+          "useCases": "Error genérico para excepciones no manejadas. Indica un error o condición inesperada en el servidor. Se deben revisar los registros para diagnosticar la causa raíz."
+        },
+        "501": {
+          "description": "El método de solicitud no es compatible con el servidor y no puede ser manejado.",
+          "useCases": "Se devuelve cuando el servidor no admite un método HTTP particular en absoluto. Diferente de 405, que significa que el método no es compatible para este recurso específico."
+        },
+        "502": {
+          "description": "El servidor, actuando como gateway para obtener una respuesta necesaria para manejar la solicitud, recibió una respuesta no válida.",
+          "useCases": "Ocurre cuando un proxy inverso (nginx, balanceador de carga) recibe una respuesta no válida del servidor de aplicaciones. A menudo indica que el servicio backend se ha caído."
+        },
+        "503": {
+          "description": "El servidor no está listo para manejar la solicitud. Las causas comunes son un servidor inactivo por mantenimiento o sobrecargado.",
+          "useCases": "Se usa durante mantenimiento programado o cuando el servidor está sobrecargado. Incluir la cabecera Retry-After para indicar cuándo se restaurará el servicio."
+        },
+        "504": {
+          "description": "El servidor actúa como gateway y no puede obtener una respuesta a tiempo.",
+          "useCases": "Un proxy inverso no recibió una respuesta oportuna del servidor upstream. Común con consultas de base de datos lentas u operaciones de larga duración."
+        },
+        "505": {
+          "description": "La versión HTTP usada en la solicitud no es compatible con el servidor.",
+          "useCases": "Se devuelve cuando el servidor no admite la versión del protocolo HTTP usada en la solicitud (p. ej., el servidor no admite HTTP/2)."
+        },
+        "506": {
+          "description": "El servidor tiene un error de configuración interno: el recurso de variante elegido está configurado para participar en negociación de contenido transparente.",
+          "useCases": "Configuración incorrecta interna del servidor. Un recurso de variante está configurado para participar en negociación de contenido, creando una referencia circular."
+        },
+        "507": {
+          "description": "El método no pudo realizarse en el recurso porque el servidor no puede almacenar la representación necesaria para completar la solicitud.",
+          "useCases": "Estado WebDAV. Se devuelve cuando el servidor se queda sin espacio en disco o cuota de almacenamiento durante una operación de subida o creación de archivos."
+        },
+        "508": {
+          "description": "El servidor detectó un bucle infinito mientras procesaba la solicitud.",
+          "useCases": "Estado WebDAV. Se detecta al procesar una solicitud Depth: infinity que crearía un bucle recursivo infinito."
+        },
+        "510": {
+          "description": "Se requieren más extensiones de la solicitud para que el servidor pueda satisfacerla.",
+          "useCases": "El servidor necesita que el cliente use una extensión del protocolo HTTP que anunció en la respuesta para procesar la solicitud."
+        },
+        "511": {
+          "description": "El cliente necesita autenticarse para obtener acceso a la red.",
+          "useCases": "Se usa en puntos de control de acceso a la red (portales cautivos, páginas de inicio de sesión Wi-Fi) para redirigir a los usuarios a una página de autenticación antes de permitir el acceso a internet."
+        }
       }
     },
     "userAgentParser": {
