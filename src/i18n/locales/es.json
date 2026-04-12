@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "defaultDescription": "29 herramientas gratuitas para desarrolladores en tu navegador: validador JSON, generador UUID, conversor Base64, tester de regex, formateador SQL, decodificador JWT y mucho más. Sin registro, 100% privado.",
+    "homeTitle": "DevToolset — Herramientas para Desarrolladores Online",
+    "homeDescription": "29 herramientas gratuitas para desarrolladores en tu navegador: validador JSON, generador UUID, conversor Base64, tester de regex, formateador SQL, decodificador JWT y mucho más. Sin registro, 100% privado."
+  },
   "nav": {
     "home": "Inicio",
     "tools": "Herramientas",

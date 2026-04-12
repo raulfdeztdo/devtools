@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "defaultDescription": "29 free developer tools in your browser: JSON validator, UUID generator, Base64 converter, regex tester, SQL formatter, JWT decoder, and much more. No registration, 100% private.",
+    "homeTitle": "DevToolset — Free Developer Tools Online",
+    "homeDescription": "29 free developer tools in your browser: JSON validator, UUID generator, Base64 converter, regex tester, SQL formatter, JWT decoder, and much more. No registration, 100% private."
+  },
   "nav": {
     "home": "Home",
     "tools": "Tools",

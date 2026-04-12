@@ -8,8 +8,13 @@ import {
   Trash2,
   Download,
 } from "lucide-vue-next";
+import { useSeoMeta } from "@/composables/useSeoMeta";
 
 const { t } = useI18n();
+useSeoMeta({
+  titleKey: "tools.uuid.title",
+  descriptionKey: "tools.uuid.description",
+});
 
 // Estado
 const selectedVersion = ref("v7");
