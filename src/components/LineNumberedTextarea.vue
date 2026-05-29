@@ -188,7 +188,7 @@ watch(() => props.modelValue, () => {
         <!-- Área de texto -->
         <textarea ref="textareaRef" v-bind="$attrs" :value="modelValue" :placeholder="placeholder" :readonly="readonly"
             :spellcheck="spellcheck"
-            class="flex-1 overflow-auto font-mono text-sm leading-6 text-gray-900 bg-white border border-l-0 border-gray-300 rounded-r-lg resize-y focus:outline-none focus:ring-2 focus:ring-brand-blue dark:bg-night-card-inner dark:text-white dark:border-night-border"
+            class="flex-1 overflow-auto font-mono text-sm leading-6 text-gray-900 bg-white border border-l-0 border-gray-300 rounded-r-lg resize-y focus:outline-hidden focus:ring-2 focus:ring-brand-blue dark:bg-night-card-inner dark:text-white dark:border-night-border"
             :style="{ minHeight, maxHeight: maxHeight || undefined }" @input="onInput" @scroll="onScroll" @keydown="onKeyDown"></textarea>
     </div>
 </template>

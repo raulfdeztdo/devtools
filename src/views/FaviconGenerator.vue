@@ -299,7 +299,7 @@ function resetImage() {
                 ref="previewCanvas"
                 width="128"
                 height="128"
-                class="rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm"
+                class="rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs"
                 style="image-rendering: pixelated; width: 128px; height: 128px"
               />
               <div class="text-sm text-gray-500 dark:text-gray-400">
