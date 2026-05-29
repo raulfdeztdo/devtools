@@ -1,9 +1,10 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), tailwindcss()],
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
@@ -12,10 +13,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     assetsDir: "assets",
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         manualChunks(id) {
-          // Vendor: Vue ecosystem
           if (
             id.includes("node_modules/vue") ||
             id.includes("node_modules/@vue") ||
@@ -25,11 +25,9 @@ export default defineConfig({
           ) {
             return "vue-vendor";
           }
-          // Vendor: Lucide icons
           if (id.includes("node_modules/lucide-vue-next")) {
             return "icons";
           }
-          // Vendor: Heavy libs (AJV, sql-formatter, marked, diff, qrcode, etc.)
           if (id.includes("node_modules")) {
             return "vendor";
           }
