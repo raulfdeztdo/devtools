@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "ajv": "^8.17.1",
+    "ajv": "^8.20.0",
     "ajv-draft-04": "^1.0.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^3.0.1",
@@ -19,18 +19,18 @@
     "js-yaml": "^4.1.1",
     "lucide-vue-next": "^1.0.0",
     "marked": "^17.0.5",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "qrcode": "^1.5.4",
     "smol-toml": "^1.6.1",
-    "sql-formatter": "^15.7.3",
-    "vue": "^3.3.8",
-    "vue-i18n": "^11.3.0",
-    "vue-router": "^5.0.3"
+    "sql-formatter": "^15.8.0",
+    "vue": "^3.5.35",
+    "vue-i18n": "^11.4.4",
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.7",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
     "tailwindcss": "^3.3.6",
     "vite": "^7.3.1"
   }
